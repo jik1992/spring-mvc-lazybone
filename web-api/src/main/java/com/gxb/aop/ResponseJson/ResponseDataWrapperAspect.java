@@ -17,12 +17,12 @@ import org.springframework.stereotype.Component;
 public class ResponseDataWrapperAspect implements InitializingBean {
 
 
-  @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
+  @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping) && execution(* com.gxb.controller.DemoController.*())")
   public void aspect() {
   }
 
 
-  @Around("within(com.gxb.*Controller)")
+  @Around("aspect()")
   public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
     Long startTime = System.currentTimeMillis();
     Object result = null;

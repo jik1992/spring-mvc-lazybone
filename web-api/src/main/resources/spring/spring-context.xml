@@ -12,7 +12,7 @@
                                 expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 
         <context:exclude-filter type="regex" expression="com.gxb.aop.ResponseJson.ResponseDataWrapperAspect"/>
+        <context:exclude-filter type="regex" expression="com.gxb.config.MySwaggerConfig"/>
     </context:component-scan>
-
 
 </beans>
