@@ -1,6 +1,8 @@
 package com.gxb.controller;
 
 
+import com.gxb.dao.AppUserMapper;
+import com.gxb.domain.AppUser;
 import com.gxb.service.DemoService;
 
 import org.slf4j.Logger;
@@ -32,16 +34,14 @@ public class DemoController {
   JdbcTemplate template;
 
   @Resource
+  AppUserMapper appUserMapper;
+
+  @Resource
   DemoService demoService;
 
   @Resource
   JedisPool pool;
 
-  @RequestMapping("/api")
-  @ApiOperation(value = "测试", httpMethod = "GET")
-  public Object index() {
-    return demoService.test("test api");
-  }
 
   @RequestMapping(value = "/jdbc", method = RequestMethod.GET)
   @ApiOperation(value = "")
@@ -60,6 +60,18 @@ public class DemoController {
     HttpSession session = request.getSession();
     session.setAttribute("session", "ok");
     return session.getAttribute("session");
+  }
+
+  @RequestMapping("/api")
+  @ApiOperation(value = "测试", httpMethod = "GET")
+  public Object index() {
+    return demoService.test("test api");
+  }
+
+  @RequestMapping(value = "/orm", method = RequestMethod.GET)
+  public Object orm(String param) {
+    AppUser user = appUserMapper.selectByPrimaryKey("5c4b1e29-edc9-4f21-8d9a-9263a4270773");
+    return user;
   }
 
 

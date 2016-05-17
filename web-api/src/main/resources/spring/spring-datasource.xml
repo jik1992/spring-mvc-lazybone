@@ -2,11 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:rdb="http://www.dangdang.com/schema/ddframe/rdb"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.dangdang.com/schema/ddframe/rdb http://www.dangdang.com/schema/ddframe/rdb/rdb.xsd">
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
     <!-- 加载配置属性文件 -->
@@ -40,24 +40,67 @@
     </bean>
 
 
-    <!--分库分表中间件-->
-    <rdb:strategy id="orderTableStrategy" sharding-columns="order_id"
-                  algorithm-expression="t_order_${order_id.longValue() % 4}"/>
-    <rdb:strategy id="orderItemTableStrategy" sharding-columns="order_id"
-                  algorithm-expression="t_order_item_${order_id.longValue() % 4}"/>
+    <!--&lt;!&ndash;分库分表中间件&ndash;&gt;-->
+    <!--<rdb:strategy id="orderTableStrategy" sharding-columns="order_id"-->
+    <!--algorithm-expression="t_order_${order_id.longValue() % 4}"/>-->
+    <!--<rdb:strategy id="orderItemTableStrategy" sharding-columns="order_id"-->
+    <!--algorithm-expression="t_order_item_${order_id.longValue() % 4}"/>-->
 
-    <rdb:data-source id="shardingDataSource">
-        <rdb:sharding-rule data-sources="dataSource">
-            <rdb:table-rules>
-                <rdb:table-rule logic-table="t_order" actual-tables="t_order_${0..3}"
-                                table-strategy="orderTableStrategy"/>
-                <rdb:table-rule logic-table="t_order_item" actual-tables="t_order_item_${0..3}"
-                                table-strategy="orderItemTableStrategy"/>
-            </rdb:table-rules>
-            <rdb:default-database-strategy sharding-columns="user_id"
-                                           algorithm-expression="dbtbl_${user_id.longValue() % 2 + 1}"/>
-        </rdb:sharding-rule>
-    </rdb:data-source>
+    <!--<rdb:data-source id="shardingDataSource">-->
+    <!--<rdb:sharding-rule data-sources="dataSource">-->
+    <!--<rdb:table-rules>-->
+    <!--<rdb:table-rule logic-table="t_order" actual-tables="t_order_${0..3}"-->
+    <!--table-strategy="orderTableStrategy"/>-->
+    <!--<rdb:table-rule logic-table="t_order_item" actual-tables="t_order_item_${0..3}"-->
+    <!--table-strategy="orderItemTableStrategy"/>-->
+    <!--</rdb:table-rules>-->
+    <!--<rdb:default-database-strategy sharding-columns="user_id"-->
+    <!--algorithm-expression="dbtbl_${user_id.longValue() % 2 + 1}"/>-->
+    <!--</rdb:sharding-rule>-->
+    <!--</rdb:data-source>-->
+
+
+    <!--maybatis 使用-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.gxb.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="append*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="modify*" propagation="REQUIRED"/>
+            <tx:method name="edit*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="remove*" propagation="REQUIRED"/>
+            <tx:method name="repair" propagation="REQUIRED"/>
+            <tx:method name="delAndRepair" propagation="REQUIRED"/>
+
+            <tx:method name="get*" propagation="SUPPORTS"/>
+            <tx:method name="find*" propagation="SUPPORTS"/>
+            <tx:method name="load*" propagation="SUPPORTS"/>
+            <tx:method name="search*" propagation="SUPPORTS"/>
+            <tx:method name="datagrid*" propagation="SUPPORTS"/>
+
+            <tx:method name="*" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.gxb.service..*Impl.*(..))"/>
+        <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice"/>
+    </aop:config>
 
 
 </beans>

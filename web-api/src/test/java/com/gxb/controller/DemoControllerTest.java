@@ -23,8 +23,7 @@ import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(value = {"classpath:spring-servlet.xml",
-                               "classpath:spring/spring-*.xml",
-})
+                               "classpath:spring/spring-*.xml"})
 
 public class DemoControllerTest {
 

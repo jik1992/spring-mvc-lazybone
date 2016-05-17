@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class ResponseDataWrapperAspect implements InitializingBean {
 
 
-  @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping) && execution(* com.gxb.controller.DemoController.*())")
+  @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping) && execution(* com.gxb.controller.DemoController.*(..))")
   public void aspect() {
   }
 

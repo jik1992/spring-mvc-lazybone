@@ -31,6 +31,7 @@ hs_err_pid*
 .idea/
 # if you remove the above rule, at least ignore the following:
 
+log_dir_IS_UNDEFINED/
 .log
 build.properties
 

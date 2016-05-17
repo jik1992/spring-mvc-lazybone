@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <classPathEntry
+            location="/Users/zuoyun1/.m2/repository/mysql/mysql-connector-java/5.1.37/mysql-connector-java-5.1.37.jar"/>
+
+    <context id="MysqlTables" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://wjwltest.mysql.rds.aliyuncs.com:3306/gxb_dev"
+                        userId="gxb_dev" password="gxb_dev">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+
+        <!--领域模型构建-->
+        <javaModelGenerator targetPackage="com.gxb.domain" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- mapping package and location -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="./src/main/resources/">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- dao package and location -->
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="com.gxb.dao" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+        <table tableName="app_user" domainObjectName="AppUser" enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+
+
+    </context>
+
+
+</generatorConfiguration>

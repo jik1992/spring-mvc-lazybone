@@ -9,3 +9,4 @@
  7. druid-datasource
  8. maven-profiles
  9. jedis
+ 10. mybatis
