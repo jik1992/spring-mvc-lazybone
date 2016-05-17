@@ -2,9 +2,9 @@ package com.gxb.controller;
 
 
 import com.gxb.dao.AppUserMapper;
-import com.gxb.domain.AppUser;
 import com.gxb.service.DemoService;
 
+import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -69,9 +69,10 @@ public class DemoController {
   }
 
   @RequestMapping(value = "/orm", method = RequestMethod.GET)
-  public Object orm(String param) {
-    AppUser user = appUserMapper.selectByPrimaryKey("5c4b1e29-edc9-4f21-8d9a-9263a4270773");
-    return user;
+  public Object orm() {
+//    return appUserMapper.selectListRow(new RowBounds(0, 3));
+
+    throw new IllegalArgumentException("参数非法");
   }
 
 

@@ -66,11 +66,6 @@
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>1.6.6</version>
             </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>1.6.6</version>
-            </dependency>
 
             <!-- 引入sharding-jdbc核心模块 -->
             <dependency>
@@ -358,10 +353,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 
         <dependency>

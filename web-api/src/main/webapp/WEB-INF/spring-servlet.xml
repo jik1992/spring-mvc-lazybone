@@ -21,24 +21,20 @@
 
     <!-- 启用默认配置 -->
     <mvc:annotation-driven>
-        <!--<mvc:message-converters register-defaults="true">-->
-            <!--&lt;!&ndash; 配置Fastjson支持 &ndash;&gt;-->
-            <!--<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">-->
-                <!--<property name="supportedMediaTypes">-->
-                    <!--<list>-->
-                        <!--<value>text/html;charset=UTF-8</value>-->
-                        <!--<value>application/json</value>-->
-                    <!--</list>-->
-                <!--</property>-->
-                <!--<property name="features">-->
-                    <!--<list>-->
-                        <!--<value>WriteMapNullValue</value>-->
-                        <!--<value>QuoteFieldNames</value>-->
-                    <!--</list>-->
-                <!--</property>-->
-            <!--</bean>-->
-        <!--</mvc:message-converters>-->
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json</value>
+                    </list>
+                </property>
+                <property name="objectMapper" ref="jacksonObjectMapper"/>
+            </bean>
+        </mvc:message-converters>
     </mvc:annotation-driven>
+    <bean id="jacksonObjectMapper" class="com.gxb.config.MyJsonMapper"/>
+
 
     <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
