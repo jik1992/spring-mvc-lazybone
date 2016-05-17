@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxb.mapper.GxbUserSalaryRealMapper">
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		 id, applyid, companyid, projectid, projectname, groupid, groupname, pmuserid, pmname, groupleader, groupleadername, recorder, recordername, paydate, salarymonth, salary, payer, payercard, receiver, paytype, remark, create_by, create_date, update_by, update_date, remarks, del_flag, status, batchno, isrec, applysalary
+	</sql>
+
+</mapper>

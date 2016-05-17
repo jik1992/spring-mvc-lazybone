@@ -27,7 +27,7 @@
     <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log_dir}/quicloud-express-boss.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log_dir}/quicloud-express-boss.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log_dir}/weiji-gxb.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -41,7 +41,7 @@
     <appender name="errorRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log_dir}/quicloud-express-boss.error</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log_dir}/quicloud-express-boss.%d{yyyy-MM-dd}.error</fileNamePattern>
+            <fileNamePattern>${log_dir}/weiji-gxb.%d{yyyy-MM-dd}.error</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">

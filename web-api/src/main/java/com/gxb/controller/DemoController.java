@@ -1,7 +1,9 @@
 package com.gxb.controller;
 
 
-import com.gxb.dao.AppUserMapper;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.gxb.entity.AppUser;
+import com.gxb.mapper.AppUserMapper;
 import com.gxb.service.DemoService;
 
 import org.apache.ibatis.session.RowBounds;
@@ -68,12 +70,23 @@ public class DemoController {
     return demoService.test("test api");
   }
 
-  @RequestMapping(value = "/orm", method = RequestMethod.GET)
-  public Object orm() {
-//    return appUserMapper.selectListRow(new RowBounds(0, 3));
-
-    throw new IllegalArgumentException("参数非法");
+  @RequestMapping(value = "/orm1", method = RequestMethod.GET)
+  public Object orm1() {
+    AppUser user = new AppUser();
+    user.setAddress("xxxx");
+    user.setAppcode("xxxx");
+    return appUserMapper.insert(user);
   }
+
+  @RequestMapping(value = "/orm2", method = RequestMethod.GET)
+  public Object orm2() {
+    AppUser user = new AppUser();
+    user.setUsername("15079179826");
+
+    return appUserMapper
+        .selectList(new EntityWrapper<AppUser>(user, "userid DESC"));
+  }
+
 
 
 }
