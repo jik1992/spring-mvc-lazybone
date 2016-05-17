@@ -39,13 +39,13 @@ public class DemoControllerTest {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
   }
 
-  @Test
-  public void convertSwaggerToAsciiDoc() throws Exception {
-    this.mockMvc.perform(MockMvcRequestBuilders.get("/v2/api-docs")
-                             .accept(MediaType.APPLICATION_JSON))
-        .andDo(Swagger2MarkupResultHandler.outputDirectory("src/docs/asciidoc/generated").build())
-        .andExpect(MockMvcResultMatchers.status().isOk());
-  }
+//  @Test
+//  public void convertSwaggerToAsciiDoc() throws Exception {
+//    this.mockMvc.perform(MockMvcRequestBuilders.get("/v2/api-docs")
+//                             .accept(MediaType.APPLICATION_JSON))
+//        .andDo(Swagger2MarkupResultHandler.outputDirectory("src/docs/asciidoc/generated").build())
+//        .andExpect(MockMvcResultMatchers.status().isOk());
+//  }
 
   @Test
   public void convertSwaggerToMarkdown() throws Exception {
