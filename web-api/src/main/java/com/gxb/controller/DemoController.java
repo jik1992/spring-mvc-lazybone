@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -49,17 +46,16 @@ public class DemoController {
   @RequestMapping(value = "/jdbc", method = RequestMethod.GET)
   @ApiOperation(value = "")
   public Object jdbc() {
-    List<Map<String, Object>> result = template.queryForList("show tables;");
-    return result;
+    return template.queryForList("show tables;");
   }
 
-  @RequestMapping("/redis")
+  @RequestMapping(value = "/redis", method = RequestMethod.POST)
   public Object redis() {
     pool.getResource().set("key", "value");
     return pool.getResource().get("key");
   }
 
-  @RequestMapping("/session")
+  @RequestMapping(value = "/session", method = RequestMethod.POST)
   public Object index(HttpServletRequest request) {
     HttpSession session = request.getSession();
     session.setAttribute("session", "ok");
